@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ticket-auth-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ticket-auth
+  template:
+    metadata:
+      labels:
+        app: ticket-auth
+    spec:
+      containers:
+      - name: ticket-auth
+        image: longbuibao/ticket-auth
+        imagePullPolicy: IfNotPresent
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "1000m"
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ticket-auth-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: ticket-auth
+  ports:
+  - name: ticket-auth 
+    protocol: TCP
+    port: 3000
+    targetPort: 3000

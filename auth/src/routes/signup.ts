@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from 'express';
 import { body, validationResult } from 'express-validator';
 
 import { SignupBody } from '../types';
-import { DatabaseConnectionError, RequestValidationError } from '../errors';
+import { DatabaseConnectionError, NotFoundError, RequestValidationError } from '../errors';
 
 const router = express.Router();
 
@@ -19,7 +19,6 @@ router.post(
       // return res.status(400).send(error.array());
     }
     const { email, password } = req.body as SignupBody;
-    throw new DatabaseConnectionError();
     res.send({ email, password });
   }
 );

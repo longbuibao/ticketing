@@ -1,11 +1,13 @@
-export class DatabaseConnectionError extends Error {
+import { CustomError } from './cutom-error';
+
+export class DatabaseConnectionError extends CustomError {
   reason = 'Something wrong in the server';
   statusCode = 500;
   constructor() {
-    super();
+    super('Error connecting to database');
     Object.setPrototypeOf(this, DatabaseConnectionError.prototype);
   }
-  seriazlizeErrors() {
+  serializeErrors() {
     return [{ message: this.reason }];
   }
 }

@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 
 import { currentUserRouter, signinRouter, signoutRouter, signupRouter } from './routes';
 import { errorHandler } from './middlewares/error-handler';
@@ -15,9 +15,10 @@ app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
 
-app.all('*', () => {
-  throw new NotFoundError();
+app.all('*', async (req: Request, res: Response, next: NextFunction) => {
+  next(new NotFoundError());
 });
+
 app.use(errorHandler);
 
 app.listen(port, () => {

@@ -1,10 +1,11 @@
 import express, { NextFunction, Request, Response } from 'express';
-import { body, validationResult } from 'express-validator';
+import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
 import { SignupBody } from '../types';
-import { RequestValidationError, BadRequestError } from '../errors';
+import { BadRequestError } from '../errors';
 import { User } from '../models/User';
+import { validateRequest } from '../middlewares/validate-request';
 
 const router = express.Router();
 
@@ -14,13 +15,9 @@ router.post(
     body('email').isEmail().withMessage('Email must be valid'),
     body('password').trim().isLength({ min: 6, max: 20 }).withMessage('Password must has length between 6 and 20'),
   ],
+  validateRequest,
   async (req: Request, res: Response, next: NextFunction) => {
-    const error = validationResult(req);
-    if (!error.isEmpty()) {
-      throw new RequestValidationError(error.array());
-    }
     const { email, password } = req.body as SignupBody;
-
     const existingUser = await User.findOne({
       email,
     });

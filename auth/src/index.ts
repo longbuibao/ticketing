@@ -28,7 +28,7 @@ app.use(signoutRouter);
 app.use(signupRouter);
 
 app.all('*', () => {
-  throw new NotFoundError();
+  throw new NotFoundError('Not found this route');
 });
 
 app.use(errorHandler);

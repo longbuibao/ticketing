@@ -1,2 +1,6 @@
 node_modules/
 .idea
+
+# Ignore DevSpace cache and log folder
+.devspace/
+devspace

@@ -16,10 +16,6 @@ spec:
       - name: auth-mongo
         image: mongo
         imagePullPolicy: IfNotPresent
-        resources:
-          limits:
-            memory: "256Mi"
-            cpu: "1000m"
         ports:
         - containerPort: 27017
 ---

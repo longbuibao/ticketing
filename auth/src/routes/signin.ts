@@ -3,7 +3,7 @@ import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
 import { BadRequestError } from '../errors';
-import { validateRequest } from '../middlewares/validate-request';
+import { validateRequest } from '../middlewares';
 import { User } from '../models/User';
 import { SignupBody } from '../types';
 import { Password } from '../services/password';

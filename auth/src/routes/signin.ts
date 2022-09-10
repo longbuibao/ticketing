@@ -31,7 +31,7 @@ router.post(
     });
 
     if (!existingUser) {
-      throw new BadRequestError('Bad credentials');
+      throw new BadRequestError('User not found');
     }
 
     const isPasswordMatch = await Password.compare(existingUser.password, password);

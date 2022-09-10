@@ -5,6 +5,10 @@ import app from '../app';
 
 let mongo: any;
 
+declare global {
+  var signin: () => Promise<string[]>;
+}
+
 beforeAll(async () => {
   process.env.JWT_KEY = 'asdfasdf';
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';

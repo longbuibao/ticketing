@@ -1,6 +1,7 @@
 import express from 'express';
 
-import { currentUser, requireAuth } from '../middlewares';
+// import { currentUser, requireAuth } from '../middlewares';
+import { currentUser, requireAuth } from '@lbbticket/common';
 
 const router = express.Router();
 

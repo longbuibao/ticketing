@@ -2,10 +2,10 @@ import express, { NextFunction, Request, Response } from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
+import { BadRequestError, validateRequest } from '@lbbticket/common';
+
 import { SignupBody } from '../types';
-import { BadRequestError } from '../errors';
 import { User } from '../models/User';
-import { validateRequest } from '../middlewares';
 
 const router = express.Router();
 

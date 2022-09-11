@@ -561,6 +561,19 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@lbbticket/common@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@lbbticket/common/-/common-1.0.5.tgz#b26a978ccb3948b1bf1fee7d4a50ccf77ea15331"
+  integrity sha512-UPNtNDvQMKEankqSytzVeoSFQ0EnhoFHTsn5XecCBV1RMHMh9kjGJ2iIteKQwRl/e7rfoZSeBcdqP1K2JDQ7BA==
+  dependencies:
+    "@types/cookie-session" "^2.0.44"
+    "@types/express" "^4.17.13"
+    "@types/jsonwebtoken" "^8.5.9"
+    cookie-session "^2.0.0"
+    express "^4.18.1"
+    express-validator "^6.14.2"
+    jsonwebtoken "^8.5.1"
+
 "@sinclair/typebox@^0.24.1":
   version "0.24.39"
   resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.24.39.tgz#21d0c56c295a00e391e20a88a48c11d4a1210ac5"

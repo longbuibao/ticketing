@@ -2,8 +2,8 @@ import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import jwt from 'jsonwebtoken';
 
-import { BadRequestError } from '../errors';
-import { validateRequest } from '../middlewares';
+import { BadRequestError, validateRequest } from '@lbbticket/common';
+
 import { User } from '../models/User';
 import { SignupBody } from '../types';
 import { Password } from '../services/password';

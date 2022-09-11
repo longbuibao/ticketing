@@ -2,9 +2,9 @@ import express from 'express';
 import 'express-async-errors';
 import cookieSession from 'cookie-session';
 
+import { errorHandler, NotFoundError } from '@lbbticket/common';
+
 import { currentUserRouter, signinRouter, signoutRouter, signupRouter } from './routes';
-import { errorHandler } from './middlewares/error-handler';
-import { NotFoundError } from './errors';
 
 const app = express();
 app.set('trust proxy', true);

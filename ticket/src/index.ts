@@ -5,9 +5,10 @@ const port = 3000;
 
 const start = async () => {
   if (!process.env.JWT_KEY) throw new Error('JWT_KEY must be defined');
+  if (!process.env.MONGO_URI) throw new Error('MONGO_URI must be defined');
   try {
     console.log('Connecting to mongodb...');
-    await mongoose.connect('mongodb://ticket-mongo-clusterip-srv:27017/auth');
+    await mongoose.connect(process.env.MONGO_URI);
     console.log('Connected to Mongodb');
   } catch (error) {
     console.error(error);

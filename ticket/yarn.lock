@@ -561,10 +561,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@lbbticket/common@^1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@lbbticket/common/-/common-1.0.5.tgz#b26a978ccb3948b1bf1fee7d4a50ccf77ea15331"
-  integrity sha512-UPNtNDvQMKEankqSytzVeoSFQ0EnhoFHTsn5XecCBV1RMHMh9kjGJ2iIteKQwRl/e7rfoZSeBcdqP1K2JDQ7BA==
+"@lbbticket/common@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@lbbticket/common/-/common-1.0.7.tgz#9e11165545f35812ed1bc95444861d3ea6d27938"
+  integrity sha512-/uFpNj7x/w6KQPSv8hXwXi68eK8vH/DJglGt2AQuo3NhBQEhzDT5mDq+5mNzhLH+KfgE15aFbze1auXRyKh18Q==
   dependencies:
     "@types/cookie-session" "^2.0.44"
     "@types/express" "^4.17.13"

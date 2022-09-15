@@ -6,16 +6,16 @@ const stan = nats.connect('ticketing', 'abc', {
 });
 
 stan.on('connect', () => {
-  // console.log('Publisher connected to nats');
-  // const data = JSON.stringify({
-  //   title: 'fddfdfdfdf',
-  //   price: 23333,
-  // });
-  // stan.publish('ticket:created', data);
-  const publisher = new TicketCreatedPublisher(stan);
-  publisher.publish({
-    id: 'dlfjdlkf',
-    price: 1,
-    title: 'ldfdfk',
+  console.log('Publisher connected to nats');
+  const data = JSON.stringify({
+    title: 'fddfdfdfdf',
+    price: 23333,
   });
+  stan.publish('ticket:created', data);
+  // const publisher = new TicketCreatedPublisher(stan);
+  // publisher.publish({
+  //   id: 'dlfjdlkf',
+  //   price: 1,
+  //   title: 'ldfdfk',
+  // });
 });

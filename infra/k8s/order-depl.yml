@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ticket-order-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ticket-order
+  template:
+    metadata:
+      labels:
+        app: ticket-order
+    spec:
+      containers:
+      - name: ticket-order
+        image: longbuibao/ticket-order
+        env:
+          - name: MONGO_URI
+            value: "mongodb://order-mongo-clusterip-srv:27017/order"
+          - name: NATS_CLIENTID
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: NATS_URL
+            value: "http://nats-clusterip-srv:4222"
+          - name: CLUSTER_ID
+            value: "ticketing"
+          - name: JWT_KEY
+            valueFrom:
+              secretKeyRef:
+                name: jwt-secret
+                key: JWT_KEY
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ticket-order-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: ticket-order
+  ports:
+  - name: ticket-order 
+    protocol: TCP
+    port: 3000
+    targetPort: 3000

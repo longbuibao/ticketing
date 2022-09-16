@@ -32,3 +32,11 @@ build:
         manual:
           - src: "**/*.ts"
             dest: .
+    - image: longbuibao/ticket-order
+      context: order
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "**/*.ts"
+            dest: .

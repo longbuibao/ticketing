@@ -3,6 +3,8 @@ import { body } from 'express-validator';
 
 import { validateRequest, NotFoundError, requireAuth, NotAuthorizedError } from '@lbbticket/common';
 
+import { natsWrapper } from '../nats-wrapper';
+import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
 import { Ticket } from '../models/Ticket';
 
 const router = express.Router();
@@ -12,7 +14,9 @@ router.put(
   requireAuth,
   [
     body('title').not().isEmpty().withMessage('Title is required'),
-    body('price').isFloat({ gt: 0 }).withMessage('Price must be provided and must be greater than 0'),
+    body('price')
+      .isFloat({ gt: 0 })
+      .withMessage('Price must be provided and must be greater than 0'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -31,6 +35,12 @@ router.put(
       price: req.body.price,
     });
     await ticket.save();
+    await new TicketUpdatedPublisher(natsWrapper.client).publish({
+      id: ticket.id,
+      title: ticket.title,
+      price: ticket.price,
+      userId: ticket.userId,
+    });
 
     res.send(ticket);
   }

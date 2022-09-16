@@ -8,8 +8,16 @@ const port = 3000;
 const start = async () => {
   if (!process.env.JWT_KEY) throw new Error('JWT_KEY must be defined');
   if (!process.env.MONGO_URI) throw new Error('MONGO_URI must be defined');
+  if (!process.env.NATS_URL) throw new Error('NAT_URL must be defined');
+  if (!process.env.CLUSTER_ID) throw new Error('NAT_URL must be defined');
+  if (!process.env.NATS_CLIENTID) throw new Error('NAT_URL must be defined');
+
   try {
-    await natsWrapper.connect('ticketing', 'asdf', 'http://nats-clusterip-srv:4222');
+    await natsWrapper.connect(
+      process.env.CLUSTER_ID,
+      process.env.NATS_CLIENTID,
+      process.env.NATS_URL
+    );
 
     natsWrapper.client.on('close', () => {
       console.log('NATS existed');

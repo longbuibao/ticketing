@@ -19,6 +19,14 @@ spec:
         env:
           - name: MONGO_URI
             value: "mongodb://ticket-mongo-clusterip-srv:27017/ticket"
+          - name: NATS_CLIENTID
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: NATS_URL
+            value: "http://nats-clusterip-srv:4222"
+          - name: CLUSTER_ID
+            value: "ticketing"
           - name: JWT_KEY
             valueFrom:
               secretKeyRef:

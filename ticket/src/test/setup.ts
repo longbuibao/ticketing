@@ -11,6 +11,7 @@ declare global {
 jest.mock('../nats-wrapper.ts');
 
 beforeAll(async () => {
+  jest.clearAllMocks();
   process.env.JWT_KEY = 'asdfasdf';
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 

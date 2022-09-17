@@ -4,7 +4,7 @@ import cookieSession from 'cookie-session';
 
 import { errorHandler, NotFoundError, currentUser } from '@lbbticket/common';
 
-import { createOrder, showOrderRouter, updateOrderRouter } from './routes';
+import { createOrder, showOrderRouter, updateOrderRouter, deleteOrderRouter } from './routes';
 
 const app = express();
 
@@ -23,6 +23,7 @@ app.use(currentUser);
 
 app.use(createOrder);
 app.use(showOrderRouter);
+app.use(deleteOrderRouter);
 app.use(updateOrderRouter);
 
 app.all('*', () => {

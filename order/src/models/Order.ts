@@ -12,7 +12,7 @@ interface OrderAttributes {
 }
 
 interface OrderDoc extends mongoose.Document {
-  orderId: string;
+  userId: string;
   status: OrderStatus;
   expiresAt: Date;
   ticket: TicketDoc;
@@ -56,6 +56,6 @@ OrderSchema.statics.build = (attrs: OrderAttributes) => {
   return new Order(attrs);
 };
 
-const Order = mongoose.model<OrderDoc, OrderModel>('User', OrderSchema);
+const Order = mongoose.model<OrderDoc, OrderModel>('Order', OrderSchema);
 
 export { Order };

@@ -1,17 +1,26 @@
 import express, { Request, Response } from 'express';
-import { body } from 'express-validator';
 
-import { validateRequest, NotFoundError, requireAuth, NotAuthorizedError } from '@lbbticket/common';
+import { NotFoundError, requireAuth, NotAuthorizedError, OrderStatus } from '@lbbticket/common';
 
-import { natsWrapper } from '../nats-wrapper';
+import { Order } from '../models';
 
 const router = express.Router();
 
-router.delete(
-  '/api/orders/:id',
-  requireAuth,
-  validateRequest,
-  async (req: Request, res: Response) => {}
-);
+router.delete('/api/orders/:orderId', requireAuth, async (req: Request, res: Response) => {
+  const { orderId } = req.params;
+
+  const order = await Order.findById(orderId);
+
+  if (!order) {
+    throw new NotFoundError('Not found this order');
+  }
+  if (order.userId !== req.currentUser!.id) {
+    throw new NotAuthorizedError();
+  }
+  order.status = OrderStatus.Cancle;
+  await order.save();
+
+  res.status(204).send(order);
+});
 
 export { router as deleteOrderRouter };

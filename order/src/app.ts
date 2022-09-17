@@ -4,7 +4,7 @@ import cookieSession from 'cookie-session';
 
 import { errorHandler, NotFoundError, currentUser } from '@lbbticket/common';
 
-import { createTicketRouter, showTicketRouter, updateTicketRouter } from './routes';
+import { createOrder, showOrderRouter, updateOrderRouter } from './routes';
 
 const app = express();
 
@@ -21,9 +21,9 @@ app.use(
 
 app.use(currentUser);
 
-app.use(createTicketRouter);
-app.use(showTicketRouter);
-app.use(updateTicketRouter);
+app.use(createOrder);
+app.use(showOrderRouter);
+app.use(updateOrderRouter);
 
 app.all('*', () => {
   throw new NotFoundError('Not found this route');

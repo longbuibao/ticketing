@@ -5,7 +5,7 @@ import { OrderStatus } from '@lbbticket/common';
 import { TicketDoc } from './Ticket';
 
 interface OrderAttributes {
-  orderId: string;
+  userId: string;
   status: OrderStatus;
   expireAt: Date;
   ticket: TicketDoc;

@@ -49,6 +49,9 @@ router.post(
       ticket,
     }).save();
 
+    // console.log(order); the order has no expireAt prop, because we define in the schema is expiresAt, so the expireAt will be strip out.
+    // an error here, order.expireAt is undefine. So invoke toISOString() can be done.
+
     await new OrderCreatedPublisher(natsWrapper.client).publish({
       expireAt: order.expireAt.toISOString(),
       id: order.id,

@@ -9,8 +9,8 @@ const start = async () => {
   if (!process.env.JWT_KEY) throw new Error('JWT_KEY must be defined');
   if (!process.env.MONGO_URI) throw new Error('MONGO_URI must be defined');
   if (!process.env.NATS_URL) throw new Error('NAT_URL must be defined');
-  if (!process.env.CLUSTER_ID) throw new Error('NAT_URL must be defined');
-  if (!process.env.NATS_CLIENTID) throw new Error('NAT_URL must be defined');
+  if (!process.env.CLUSTER_ID) throw new Error('CLUSTER_ID must be defined');
+  if (!process.env.NATS_CLIENTID) throw new Error('NATS_CLIENTID must be defined');
 
   try {
     await natsWrapper.connect(

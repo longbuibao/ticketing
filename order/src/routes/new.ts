@@ -10,6 +10,8 @@ import {
   validateRequest,
 } from '@lbbticket/common';
 
+import { OrderCreatedPublisher } from '../events/publishers';
+import { natsWrapper } from '../nats-wrapper';
 import { Ticket, Order } from '../models';
 
 const router = express.Router();
@@ -31,24 +33,44 @@ router.post(
     //find the ticket and make sure that this ticket is not reserved
     const { ticketId } = req.body;
     const ticket = await Ticket.findById(ticketId);
-    if (!ticket) throw new NotFoundError('Not found this ticket');
+    // if (!ticket) throw new NotFoundError('Not found this ticket');
     //a ticket is reserved if it associated with another order and that order must not have status of !cancle
 
-    const isReserved = await ticket.isReserved();
-    if (isReserved) throw new BadRequestError('This ticket already been reserved');
+    if (!ticket) {
+      const ticket = Ticket.build({
+        price: 20,
+        title: 'lfdlkfjlkjl',
+      });
 
-    const expiration = new Date();
-    expiration.setSeconds(expiration.getSeconds() + EXPIRATION_SECONDS);
+      await ticket.save();
 
-    const order = Order.build({
-      userId: req.currentUser!.id,
-      expireAt: expiration,
-      status: OrderStatus.Created,
-      ticket,
-    });
+      const isReserved = await ticket.isReserved();
+      if (isReserved) throw new BadRequestError('This ticket already been reserved');
 
-    await order.save();
-    res.status(201).send(order);
+      const expiration = new Date();
+      expiration.setSeconds(expiration.getSeconds() + EXPIRATION_SECONDS);
+
+      const order = Order.build({
+        userId: req.currentUser!.id,
+        expireAt: expiration,
+        status: OrderStatus.Created,
+        ticket,
+      });
+
+      await order.save();
+      console.log('fldsjfldkj');
+      new OrderCreatedPublisher(natsWrapper.client).publish({
+        expireAt: order.expiresAt.toISOString(),
+        id: order.id,
+        orderStatus: order.status,
+        ticket: {
+          id: ticket.id,
+          price: ticket.price,
+        },
+        userId: order.userId,
+      });
+      res.status(201).send(order);
+    }
   }
 );
 

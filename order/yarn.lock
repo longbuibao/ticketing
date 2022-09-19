@@ -561,10 +561,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@lbbticket/common@^1.0.13":
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/@lbbticket/common/-/common-1.0.13.tgz#7793af055c20d82c3979effb89db68fc73c237b2"
-  integrity sha512-r+VcKOnK7F3GAJBMLa/C/vhyHIFO2KAR/DjIxfBNdV40fhMTqyJt1FiYEBGxx7YUzlSk7Pkq0ktrXJwZ9w6wMQ==
+"@lbbticket/common@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@lbbticket/common/-/common-1.0.15.tgz#76bce66025d2e07622598fcefaeb038b904e4d52"
+  integrity sha512-pI9r5hItzCp/vabam5hr0CVrIigdV2Y30AOtvdHQJPPE0TK4V7RoWyDpOgckUoKD/NfPVR/59VOBqae9wMiFng==
   dependencies:
     "@types/cookie-session" "^2.0.44"
     "@types/express" "^4.17.13"
@@ -1293,6 +1293,11 @@ cookies@0.8.0:
   dependencies:
     depd "~2.0.0"
     keygrip "~1.1.0"
+
+core-js@^3.2.1:
+  version "3.25.2"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.25.2.tgz#2d3670c1455432b53fa780300a6fc1bd8304932c"
+  integrity sha512-YB4IAT1bjEfxTJ1XYy11hJAKskO+qmhuDBM8/guIfMz4JvdsAQAqvyb97zXX7JgSrfPLG5mRGFWJwJD39ruq2A==
 
 create-require@^1.1.0:
   version "1.1.1"
@@ -2344,7 +2349,7 @@ jws@^3.2.2:
     jwa "^1.4.1"
     safe-buffer "^5.0.1"
 
-kareem@2.4.1:
+kareem@2.4.1, kareem@^2.3.0:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/kareem/-/kareem-2.4.1.tgz#7d81ec518204a48c1cb16554af126806c3cd82b0"
   integrity sha512-aJ9opVoXroQUPfovYP5kaj2lM7Jn02Gw13bL0lg9v0V7SaUc0qavPs0Eue7d2DcC3NjqI6QAUElXNsuZSeM+EA==
@@ -2570,6 +2575,15 @@ mongodb@4.9.1, mongodb@~4.9.0:
     socks "^2.7.0"
   optionalDependencies:
     saslprep "^1.0.3"
+
+mongoose-update-if-current@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/mongoose-update-if-current/-/mongoose-update-if-current-1.4.0.tgz#1bba7b3509791cf98320a5a06556ee01575a7a20"
+  integrity sha512-Rau2nvdiLExqXrSOwMMgDYQgf/fwTJQpPidTcT7C9UMQ282gTKXjDuh5vrjVvVQpfuvkiPis0tGHdXffaD54bg==
+  dependencies:
+    core-js "^3.2.1"
+    kareem "^2.3.0"
+    regenerator-runtime "^0.13.5"
 
 mongoose@^6.5.5:
   version "6.6.0"
@@ -2908,6 +2922,11 @@ readdirp@~3.6.0:
   integrity sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==
   dependencies:
     picomatch "^2.2.1"
+
+regenerator-runtime@^0.13.5:
+  version "0.13.9"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz#8925742a98ffd90814988d7566ad30ca3b263b52"
+  integrity sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==
 
 require-directory@^2.1.1:
   version "2.1.1"

@@ -9,16 +9,12 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
   qGroupName = orderQGroupName;
 
   async onMessage(data: TicketUpdatedEvent['data'], msg: Message) {
-    const { id, title, price, version } = data;
-    const ticket = await Ticket.findOne({
-      _id: id,
-      version: version - 1,
-    });
+    const { title, price, id, version } = data;
+    const ticket = await Ticket.findByEvent({ id, version });
 
     if (!ticket) throw new NotFoundError('Not found this ticket');
     ticket.set({ title, price });
     await ticket.save();
-
     msg.ack();
   }
 }

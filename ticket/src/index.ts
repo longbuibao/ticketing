@@ -1,16 +1,21 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
-import app from './app';
-import { natsWrapper } from './nats-wrapper';
+import app from "./app";
+import { natsWrapper } from "./nats-wrapper";
+import {
+  OrderCancelledListener,
+  OrderCreatedListener,
+} from "./events/listeners";
 
 const port = 3000;
 
 const start = async () => {
-  if (!process.env.JWT_KEY) throw new Error('JWT_KEY must be defined');
-  if (!process.env.MONGO_URI) throw new Error('MONGO_URI must be defined');
-  if (!process.env.NATS_URL) throw new Error('NAT_URL must be defined');
-  if (!process.env.CLUSTER_ID) throw new Error('CLUSTER_ID must be defined');
-  if (!process.env.NATS_CLIENTID) throw new Error('NATS_CLIENTID must be defined');
+  if (!process.env.JWT_KEY) throw new Error("JWT_KEY must be defined");
+  if (!process.env.MONGO_URI) throw new Error("MONGO_URI must be defined");
+  if (!process.env.NATS_URL) throw new Error("NAT_URL must be defined");
+  if (!process.env.CLUSTER_ID) throw new Error("CLUSTER_ID must be defined");
+  if (!process.env.NATS_CLIENTID)
+    throw new Error("NATS_CLIENTID must be defined");
 
   try {
     await natsWrapper.connect(
@@ -19,13 +24,16 @@ const start = async () => {
       process.env.NATS_URL
     );
 
-    natsWrapper.client.on('close', () => {
-      console.log('NATS existed');
+    natsWrapper.client.on("close", () => {
+      console.log("NATS existed");
       process.exit();
     });
 
-    process.on('SIGINT', () => natsWrapper.client.close());
-    process.on('SIGTERM', () => natsWrapper.client.close());
+    process.on("SIGINT", () => natsWrapper.client.close());
+    process.on("SIGTERM", () => natsWrapper.client.close());
+
+    new OrderCreatedListener(natsWrapper.client).listen();
+    new OrderCancelledListener(natsWrapper.client).listen();
 
     await mongoose.connect(process.env.MONGO_URI);
   } catch (error) {

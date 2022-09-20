@@ -32,4 +32,8 @@ it("Create and save a ticket", async () => {
   expect(ticket!.id).toEqual(data.id);
 });
 
-it("Ack the message", async () => {});
+it("Ack the message", async () => {
+  const { data, msg, listener } = await setup();
+  await listener.onMessage(data, msg);
+  expect(msg.ack).toHaveBeenCalled();
+});

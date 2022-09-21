@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ticket-expriation-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ticket-expriation
+  template:
+    metadata:
+      labels:
+        app: ticket-expriation
+    spec:
+      containers:
+        - name: ticket-expriation
+          image: longbuibao/ticket-expriation
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-clusterip-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: ticketing
+            - name: REDIS_HOST
+              value: expiration-redis-srv
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ticket-expriation-clusterip-srv
+spec:
+  selector:
+    app: ticket-expriation
+  ports:
+    - name: ticket-expriation
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

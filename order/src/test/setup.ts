@@ -11,7 +11,6 @@ declare global {
 jest.mock('../nats-wrapper.ts');
 
 beforeAll(async () => {
-  jest.clearAllMocks();
   process.env.JWT_KEY = 'asdfasdf';
   process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
@@ -22,6 +21,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+  jest.clearAllMocks();
   const collections = await mongoose.connection.db.collections();
   await Promise.all(collections.map(async (collection) => await collection.deleteMany({})));
 });

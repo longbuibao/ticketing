@@ -10,7 +10,7 @@ import {
   OrderStatus,
 } from '@lbbticket/common';
 
-import { Order } from '../models/Order';
+import { Order, Payment } from '../models';
 import { stripe } from '../stripe';
 
 const router = express.Router();
@@ -29,12 +29,18 @@ router.post(
     }
     if (order.status === OrderStatus.Cancle)
       throw new BadRequestError(`order status is invalid, current status is ${order.status}`);
-    const strRes = await stripe.charges.create({
+    const charge = await stripe.charges.create({
       currency: 'usd',
       amount: order.price * 100,
       source: token,
     });
-    res.status(201).send({ strRes });
+
+    const payment = await Payment.build({
+      orderId: order.id,
+      stripeId: charge.id,
+    }).save();
+
+    res.status(201).send(payment);
   }
 );
 

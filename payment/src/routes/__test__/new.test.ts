@@ -5,6 +5,7 @@ import { OrderStatus } from '@lbbticket/common';
 import { app } from '../../app';
 import { Order } from '../../models/Order';
 import { stripe } from '../../stripe';
+import { Payment } from '../../models';
 
 it('returns a 404 when purchasing an order that does not exist', async () => {
   await request(app)
@@ -83,4 +84,35 @@ it('return 204 with valid input', async () => {
   //@ts-ignore
   const chargeOptions = parseInt(JSON.stringify(stripe.charges.create.mock.calls[0][0]['amount']));
   expect(chargeOptions).toEqual(order.price * 100);
+});
+
+it('persist the payment', async () => {
+  const userId = new mongoose.Types.ObjectId().toHexString();
+  const order = Order.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
+    userId,
+    version: 0,
+    price: 20,
+    status: OrderStatus.Created,
+  });
+  await order.save();
+
+  const payment = await request(app)
+    .post('/api/payments')
+    .set('Cookie', await global.signin(userId))
+    .send({
+      token: 'tok_visa',
+      orderId: order.id,
+    })
+    .expect(201);
+
+  //@ts-ignore
+  const chargeOptions = parseInt(JSON.stringify(stripe.charges.create.mock.calls[0][0]['amount']));
+  const paymentPersisted = await Payment.findOne({
+    stripeId: 'ch_3LkqXcA07qmrVBis1bhNkLYu',
+  });
+
+  expect(stripe.charges.create).toBeCalled();
+  expect(chargeOptions).toEqual(order.price * 100);
+  expect(paymentPersisted!.id).toEqual(payment.body.id);
 });

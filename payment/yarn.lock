@@ -561,10 +561,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@lbbticket/common@^1.0.17":
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/@lbbticket/common/-/common-1.0.18.tgz#c5a16a34a9b531ef3c725cc60a5f2557166e22b8"
-  integrity sha512-G0VLyW0qwpKEVdm2nne2mpIkjfuwaB+Rveh8JOxDZczDXuWzrqYV21vYxzO3LWLtcIhNBXgxOFJ7MHuF08imsA==
+"@lbbticket/common@^1.0.19":
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/@lbbticket/common/-/common-1.0.19.tgz#0f750b4aee989a99e001d0fe5709c919ab7e8020"
+  integrity sha512-3zg0bDVswY+fnDPlxcF5pl3L2OLUq9EQi5pVabZC6HCY1OO0dwFQquuVOAWdKcmX9thUv4TJQT4CJ2ba2PWJDg==
   dependencies:
     "@types/cookie-session" "^2.0.44"
     "@types/express" "^4.17.13"
@@ -745,7 +745,7 @@
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-3.0.1.tgz#5f8f2bca0a5863cb69bc0b0acd88c96cb1d4ae10"
   integrity sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA==
 
-"@types/node@*":
+"@types/node@*", "@types/node@>=8.1.0":
   version "18.7.18"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.18.tgz#633184f55c322e4fb08612307c274ee6d5ed3154"
   integrity sha512-m+6nTEOadJZuTPkKR/SYK3A2d7FZrgElol9UP1Kae90VVU4a6mxnPuLiIW1m4Cq4gZ/nWb9GrdVXJCoCazDAbg==
@@ -3187,6 +3187,14 @@ strip-json-comments@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-3.1.1.tgz#31f1281b3832630434831c310c01cccda8cbe006"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
+
+stripe@^10.10.0:
+  version "10.10.0"
+  resolved "https://registry.yarnpkg.com/stripe/-/stripe-10.10.0.tgz#b7a3b4625df34a457b493d4e79c93d75ad9bbe52"
+  integrity sha512-CINNkuDEmF1rsHoTKS39iZ641NFONKZKllUioeQkRpz7qYPJayp7Xl/V30vbM2n5CTJo3X0FmZ2CychThfPTDA==
+  dependencies:
+    "@types/node" ">=8.1.0"
+    qs "^6.10.3"
 
 superagent@^8.0.0:
   version "8.0.0"

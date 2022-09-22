@@ -16,6 +16,11 @@ spec:
         - name: payments
           image: longbuibao/ticket-payment
           env:
+            - name: STRIPE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-secret
+                  key: STRIPE_KEY
             - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:

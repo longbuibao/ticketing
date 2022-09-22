@@ -2,7 +2,7 @@ FROM node:16-alpine
 
 WORKDIR /app
 COPY package.json .
-RUN yarn
+RUN npm install
 COPY . .
 
-CMD ["yarn", "dev"]
+CMD ["npm", "run", "dev"]

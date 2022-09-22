@@ -48,3 +48,11 @@ build:
         manual:
           - src: "**/*.ts"
             dest: .
+    - image: longbuibao/ticket-payment
+      context: payment
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
